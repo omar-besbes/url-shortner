@@ -13,9 +13,9 @@ export async function POST(request: Request) {
 		domain: process.env.BITLY_DOMAIN,
 	} as bitly);
 
-	console.log(process.env.BITLY_ACCESS_TOKEN);
+	if (!process.env.BITLY_ENDPOINT) throw new Error();
 
-	const newURL: string = await fetch(process.env.BITLY_ENDPOINT, {
+	const newURL: string = await fetch(new URL(process.env.BITLY_ENDPOINT), {
 		method: 'POST',
 		headers: {
 			'Accept': 'application/json',
